@@ -1,5 +1,54 @@
 <?php
 
+//grupos de rotas
+
+Route::get('/login', function () {
+    return 'Login';
+})->name('login');
+/*
+//aplicando uma verificação via middleware.
+Route::middleware([])->group(function () {
+    //nome do parametro da rota/admin/...
+    Route::prefix('admin')->group( function () {
+        //namespace do controller
+        Route::namespace('Admin')->group(function() {
+            //ajustando os nomes das rotas
+            Route::name('admin.')->group(function(){
+
+                Route::get('/dashboard', 'TesteController@teste')->name('dashboard');
+        
+                Route::get('/financeiro', 'TesteController@teste')->name('financeiro');
+        
+                Route::get('/produtos', 'TesteController@teste')->name('produtos');
+
+                Route::get('/', function () {
+                    return redirect()->route('admin.dashboard');
+                })->name('home');
+            });
+        });
+    });
+});
+*/
+
+Route::group([
+    'middleware' => [],
+    'prefix' => 'admin',
+    'namespace' => 'Admin'
+    //name não funciona nesse modelo aqui
+], function(){
+
+    Route::get('/dashboard', 'TesteController@teste')->name('admin.dashboard');
+        
+        Route::get('/financeiro', 'TesteController@teste')->name('admin.financeiro');
+
+        Route::get('/produtos', 'TesteController@teste')->name('admin.produtos');
+
+        Route::get('/', function () {
+            return redirect()->route('admin.dashboard');
+        })->name('admin.home');
+});
+
+
 Route::get('/redirect3', function (){
     return redirect()->route('url.name');
 });
