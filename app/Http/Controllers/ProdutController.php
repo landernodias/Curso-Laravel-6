@@ -15,7 +15,7 @@ class ProdutController extends Controller
         $this->request = $request;
         
        // $this->middleware('auth')->only(['create','edit','update','destroy']);
-        $this->middleware('auth')->except(['index','show']);
+        // $this->middleware('auth')->except(['index','show','create']);
     }
     /**
      * Display a listing of the resource.
@@ -43,7 +43,7 @@ class ProdutController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.produtos.create');
     }
 
     /**
@@ -54,7 +54,21 @@ class ProdutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());//mostra tudo que foi recebido
+        // dd($request->only(['name','description']));//pega dados especificos
+        // dd($request->name);//pega o campo especifico
+        // dd($request->has('name'));//verifica se existe ou não o campo
+        // dd($request->input('model',''));
+        // dd($request->except('_token','nome'));//pega todo eceto o name
+        if ($request->file('photo')->isValid()){//fazendo upload de arquivo e validando.
+            // dd($request->photo->extension());//pega extensão do arquivo
+            // dd($request->photo->getClientOriginalName());//pega o nome do arquivo.
+            // dd($request->file('photo')->store('products'));//upa o arquivo para a aplicação criasndo um novo diretório
+            $nameFile = $request->name . '.' . $request->photo->extension();
+            // dd($nameFile);
+            dd($request->file('photo', $nameFile)->storeAS('products/', $nameFile));//upa o arquivo para a aplicação com nome definido
+
+        }
     }
 
     /**
@@ -76,7 +90,7 @@ class ProdutController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.pages.produtos.edit', compact('id'));
     }
 
     /**
@@ -88,7 +102,7 @@ class ProdutController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd("Editando produto {$id}");
     }
 
     /**
