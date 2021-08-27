@@ -1,6 +1,6 @@
 <?php
 
-Route::resource('products', 'ProdutController');
+Route::resource('products', 'ProdutController');//->middleware('auth');
 /*
 Route::delete('products/{id}', 'ProductController@destroy')->name('product.destroy');
 

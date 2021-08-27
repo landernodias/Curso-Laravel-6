@@ -12,7 +12,10 @@ class ProdutController extends Controller
     public function __construct(Request $request) 
     {
         //dd($request);
-        $this->request = $request; 
+        $this->request = $request;
+        
+       // $this->middleware('auth')->only(['create','edit','update','destroy']);
+        $this->middleware('auth')->except(['index','show']);
     }
     /**
      * Display a listing of the resource.
@@ -21,7 +24,16 @@ class ProdutController extends Controller
      */
     public function index()
     {
-        return 'teste';
+        $teste = 123;
+        $teste2 = 456;
+        $teste3 = [1,2,3,4,5,6];
+        $products = ['Tv', 'Geladeira', 'Forno', 'Sofá'];
+        $products2 = [];
+        // return view('teste', [
+        //     'teste' => $teste
+        // ]);
+
+        return view('admin.pages.produtos.index', compact('teste', 'teste2', 'teste3','products','products2'));
     }
 
     /**
