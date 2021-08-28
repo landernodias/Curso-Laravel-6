@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Http\Requests\StoreUpdateProductRequest;
 use Illuminate\Http\Request;
 
 class ProdutController extends Controller
@@ -24,16 +26,17 @@ class ProdutController extends Controller
      */
     public function index()
     {
-        $teste = 123;
-        $teste2 = 456;
-        $teste3 = [1,2,3,4,5,6];
-        $products = ['Tv', 'Geladeira', 'Forno', 'Sofá'];
-        $products2 = [];
+
+        // $products = Product::get();
+        $products = Product::latest()->paginate();
+
         // return view('teste', [
         //     'teste' => $teste
         // ]);
 
-        return view('admin.pages.produtos.index', compact('teste', 'teste2', 'teste3','products','products2'));
+        return view('admin.pages.produtos.index',[
+            'products' => $products
+        ]);
     }
 
     /**
@@ -49,23 +52,33 @@ class ProdutController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreUpdateProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateProductRequest $request)
     {
+        dd('OK');
         // dd($request->all());//mostra tudo que foi recebido
         // dd($request->only(['name','description']));//pega dados especificos
         // dd($request->name);//pega o campo especifico
         // dd($request->has('name'));//verifica se existe ou não o campo
         // dd($request->input('model',''));
         // dd($request->except('_token','nome'));//pega todo eceto o name
+/*        $request->validate([
+            'name' => 'required|min:3|max:255',
+            'description' => 'nullable|min:3|max:10000',
+            'photo' => 'required|image',
+
+        ]);
+*/
         if ($request->file('photo')->isValid()){//fazendo upload de arquivo e validando.
+            
             // dd($request->photo->extension());//pega extensão do arquivo
             // dd($request->photo->getClientOriginalName());//pega o nome do arquivo.
             // dd($request->file('photo')->store('products'));//upa o arquivo para a aplicação criasndo um novo diretório
-            $nameFile = $request->name . '.' . $request->photo->extension();
             // dd($nameFile);
+            
+            $nameFile = $request->name . '.' . $request->photo->extension();
             dd($request->file('photo', $nameFile)->storeAS('products/', $nameFile));//upa o arquivo para a aplicação com nome definido
 
         }
