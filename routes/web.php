@@ -1,5 +1,7 @@
 <?php
 
+Route::any('products/search', 'ProdutController@search')->name('products.search');
+
 Route::resource('products', 'ProdutController');//->middleware('auth');
 /*
 Route::delete('products/{id}', 'ProductController@destroy')->name('product.destroy');
