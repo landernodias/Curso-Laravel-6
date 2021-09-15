@@ -1,5 +1,7 @@
 <?php
-
+/*
+testando commit gitkraken
+*/
 Route::any('products/search', 'ProdutController@search')->name('products.search')->middleware('auth');
 
 Route::resource('products', 'ProdutController')->middleware(['auth', 'check.is.admin']);
