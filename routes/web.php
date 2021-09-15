@@ -1,6 +1,7 @@
 <?php
 /*
 testando commit gitkraken
+teste
 */
 Route::any('products/search', 'ProdutController@search')->name('products.search')->middleware('auth');
 
