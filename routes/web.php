@@ -1,6 +1,6 @@
 <?php
 /*
-testando commit gitkraken juio
+testando hotfix
 */
 Route::any('products/search', 'ProdutController@search')->name('products.search')->middleware('auth');
 
@@ -22,6 +22,10 @@ Route::get('products', 'ProductController@index')->name('products.index');
 
 /**
  * modificação
+ */
+
+ /*
+ new test
  */
 Route::get('/', function(){
     return view('welcome');
