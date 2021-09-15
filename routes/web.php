@@ -19,6 +19,10 @@ Route::post('products/store', 'ProductController@store')->name('products.store')
 Route::get('products', 'ProductController@index')->name('products.index');
 */
 
+
+/**
+ * modificação
+ */
 Route::get('/', function(){
     return view('welcome');
 });
